@@ -12,7 +12,6 @@ turtle.shape(image)
 data = pandas.read_csv("50_states.csv")
 state_list = data.state.to_list()
 guessed_states = []
-missing_states = []
 
 # Running the game
 while len(guessed_states) < 50:
@@ -23,9 +22,7 @@ while len(guessed_states) < 50:
 
     # Exits the game loop and creates a new CSV file with all the missing states
     if answer_state == "Exit":
-        for states in state_list:
-            if states not in guessed_states:
-                missing_states.append(states)
+        missing_states = [state for state in state_list if state not in guessed_states]
         new_data = pandas.DataFrame(missing_states)
         new_data.to_csv("states_to_learn.csv")
         break
